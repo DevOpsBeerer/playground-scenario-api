@@ -1,0 +1,739 @@
+openapi: 3.1.0
+info:
+  title: BeererAPI
+  description: |
+    API for requesting details and list of beers for organization.
+  version: 1.0.0
+  contact:
+    name: Devops Beerer Team
+    url: https://devopsbeerer.ch/support
+    email: no-reply@devopsbeerer.ch
+  license:
+    name: MIT
+    identifier: MIT
+
+servers:
+  - url: http://localhost:3000/1.0.0
+    description: Local development server
+  - url: https://api.devopsbeerer.ch/1.0
+    description: Production server
+  - url: https://try.devopsbeerer.ch/rest/BeererAPI/1.0.0
+    description: Mock Server
+
+tags:
+  - name: beers
+    description: Operations related to beers
+  - name: orders
+    description: Operations related to beers's order
+
+components:
+  schemas:
+    UniqueId:
+      type: string
+      description: Unique ID of element
+      format: uuid
+
+    BeerName:
+      type: string
+      description: Name of the beer
+
+    BeerStyle:
+      type: string
+      description: Style of the beer
+
+    BeerABV:
+      type: number
+      format: float
+      description: Alcohol by volume percentage
+
+    BeerIBU:
+      type: number
+      format: float
+      description: International Bitterness Units
+
+    BeerQuantity:
+      type: number
+      description: Quantity of this beer
+      default: 0
+
+    Beer:
+      description: A beer object
+      type: object
+      required:
+        - name
+        - style
+        - abv
+        - quantity
+      properties:
+        id:
+          $ref: "#/components/schemas/UniqueId"
+        name:
+          $ref: "#/components/schemas/BeerName"
+        style:
+          $ref: "#/components/schemas/BeerStyle"
+        abv:
+          $ref: "#/components/schemas/BeerABV"
+        ibu:
+          $ref: "#/components/schemas/BeerIBU"
+        quantity:
+          $ref: "#/components/schemas/BeerQuantity"
+        createdDate:
+          type: string
+          format: date-time
+          description: Date when the beer was created
+          readOnly: true
+        updatedDate:
+          type: string
+          format: date-time
+          description: Date when the beer was last updated
+          readOnly: true
+      examples:
+        - id: "550e8400-e29b-41d4-a716-446655440000"
+          name: "Hazy Wonder"
+          style: "IPA"
+          abv: 6.5
+          ibu: 45
+          quantity: 4
+          createdDate: "2022-01-01T12:00:00Z"
+          updatedDate: "2022-01-01T12:00:00Z"
+        - id: "550e8400-e29b-41d4-a716-446655440001"
+          name: "Midnight Stout"
+          style: "Imperial Stout"
+          abv: 9.2
+          ibu: 60
+          quantity: 9
+          createdDate: "2022-01-03T09:15:00Z"
+          updatedDate: "2022-02-01T10:45:00Z"
+        - id: "550e8400-e29b-41d4-a716-446655440002"
+          name: "Pilsner Paradise"
+          style: "Pilsner"
+          abv: 4.8
+          ibu: 20
+          quantity: 0
+          createdDate: "2022-01-02T14:30:00Z"
+          updatedDate: "2022-01-02T14:30:00Z"
+
+    BeerCreate:
+      description: Input object for creating a new beer
+      type: object
+      required:
+        - name
+        - style
+        - abv
+        - ibu
+        - quantity
+      properties:
+        name:
+          $ref: "#/components/schemas/BeerName"
+        style:
+          $ref: "#/components/schemas/BeerStyle"
+        abv:
+          $ref: "#/components/schemas/BeerABV"
+        ibu:
+          $ref: "#/components/schemas/BeerIBU"
+        isAvailable:
+          $ref: "#/components/schemas/BeerQuantity"
+      examples:
+        - name: "Hazy Wonder"
+          style: "IPA"
+          abv: 6.5
+          ibu: 45
+          quantity: 4
+        - name: "Midnight Stout"
+          style: "Imperial Stout"
+          abv: 9.2
+          quantity: 9
+        - name: "Pilsner Paradise"
+          style: "Pilsner"
+          abv: 4.8
+          quantity: 0
+
+    BeerUpdate:
+      description: Input object for updating an existing beer
+      type: object
+      properties:
+        name:
+          $ref: "#/components/schemas/BeerName"
+        style:
+          $ref: "#/components/schemas/BeerStyle"
+        abv:
+          $ref: "#/components/schemas/BeerABV"
+        ibu:
+          $ref: "#/components/schemas/BeerIBU"
+        quantity:
+          $ref: "#/components/schemas/BeerQuantity"
+      examples:
+        - name: "Hazy Wonder"
+          style: "IPA"
+          abv: 6.5
+          ibu: 45
+          quantity: 4
+        - name: "Midnight Stout"
+          style: "Imperial Stout"
+          abv: 9.2
+          quantity: 9
+        - name: "Pilsner Paradise"
+          style: "Pilsner"
+          abv: 4.8
+          quantity: 0
+
+    OrderStatus:
+      type: string
+      enum: [CREATED, DONE, REJECTED]
+      description: Status of an order
+
+    Order:
+      description: A beer's order object
+      properties:
+        id:
+          $ref: "#/components/schemas/UniqueId"
+        beerId:
+          $ref: "#/components/schemas/UniqueId"
+        quantity:
+          $ref: "#/components/schemas/BeerQuantity"
+        userId:
+          $ref: "#/components/schemas/UniqueId"
+        status:
+          $ref: "#/components/schemas/OrderStatus"
+        createdDate:
+          type: string
+          format: date-time
+          description: Date when the beer was created
+          readOnly: true
+      examples:
+        - id: 909c2eb9-98bd-4c31-959e-6f239c13113a
+          beerId: 550e8400-e29b-41d4-a716-446655440000
+          userId: 542032df-5c14-4491-8e01-22c84b040f7d
+          quantity: 4
+          createdDate: "2022-01-02T14:30:00Z"
+          status: CREATED
+
+    OrderCreate:
+      description: A beer's order input object
+      properties:
+        beerId:
+          $ref: "#/components/schemas/UniqueId"
+        quantity:
+          $ref: "#/components/schemas/BeerQuantity"
+        userId:
+          $ref: "#/components/schemas/UniqueId"
+      examples:
+        - beerId: 550e8400-e29b-41d4-a716-446655440000
+          userId: 542032df-5c14-4491-8e01-22c84b040f7d
+          quantity: 4
+
+    OrderUpdate:
+      description: A beer's order update input object
+      properties:
+        status:
+          $ref: "#/components/schemas/OrderStatus"
+      examples:
+        - status: CREATED
+
+    Error:
+      type: object
+      description: Error response format
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: Error code
+          examples:
+            - 400
+            - 401
+            - 404
+        message:
+          type: string
+          description: Error message
+          examples:
+            - "Bad request"
+            - "Unauthorized"
+            - "Not found"
+      examples:
+        - code: 400
+          message: "Bad request"
+        - code: 401
+          message: "Unauthorized"
+        - code: 404
+          message: "Not found"
+
+  parameters:
+    beerId:
+      name: beerId
+      in: path
+      required: true
+      description: Unique identifier of the beer
+      schema:
+        type: string
+        format: uuid
+      examples:
+        hazyWonder:
+          value: "550e8400-e29b-41d4-a716-446655440000"
+        midnightStout:
+          value: "550e8400-e29b-41d4-a716-446655440001"
+        pilsnerParadise:
+          value: "550e8400-e29b-41d4-a716-446655440002"
+
+    orderId:
+      name: orderId
+      in: path
+      required: true
+      description: Unique identifier of the order
+      schema:
+        type: string
+        format: uuid
+      examples:
+        hazyWonderOrder:
+          value: "909c2eb9-98bd-4c31-959e-6f239c13113a"
+
+    availabilityFilter:
+      name: isAvailable
+      in: query
+      description: Filter beers by availability
+      schema:
+        type: boolean
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+paths:
+  /beers:
+    get:
+      summary: List all beers
+      description: Returns a list of beers with optional filtering
+      operationId: listBeers
+      tags:
+        - beers
+      parameters:
+        - $ref: "#/components/parameters/availabilityFilter"
+      responses:
+        "200":
+          description: A list of beers
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - total
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Beer"
+                  total:
+                    type: integer
+                    description: Total number of beers matching the filter criteria
+                    example: 2
+              examples:
+                all:
+                  value:
+                    data:
+                      - id: "550e8400-e29b-41d4-a716-446655440000"
+                        name: "Hazy Wonder"
+                        style: "IPA"
+                        abv: 6.5
+                        ibu: 45
+                        quantity: 4
+                        createdDate: "2022-01-01T12:00:00Z"
+                        updatedDate: "2022-01-01T12:00:00Z"
+                      - id: "550e8400-e29b-41d4-a716-446655440001"
+                        name: "Midnight Stout"
+                        style: "Imperial Stout"
+                        abv: 9.2
+                        ibu: 60
+                        quantity: 9
+                        createdDate: "2022-01-03T09:15:00Z"
+                        updatedDate: "2022-02-01T10:45:00Z"
+                      - id: "550e8400-e29b-41d4-a716-446655440002"
+                        name: "Pilsner Paradise"
+                        style: "Pilsner"
+                        abv: 4.8
+                        ibu: 20
+                        quantity: 0
+                        createdDate: "2022-01-02T14:30:00Z"
+                        updatedDate: "2022-01-02T14:30:00Z"
+                    total: 3
+                empty:
+                  value:
+                    data: []
+                    total: 0
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      summary: Create a new beer
+      description: Creates a new beer in the database
+      operationId: createBeer
+      tags:
+        - beers
+      requestBody:
+        description: Beer to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BeerCreate"
+      responses:
+        "201":
+          description: Beer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+              examples:
+                hazyWonder:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "Hazy Wonder"
+                    style: "IPA"
+                    abv: 6.5
+                    ibu: 45
+                    quantity: 4
+                    createdDate: "2022-01-01T12:00:00Z"
+                    updatedDate: "2022-01-01T12:00:00Z"
+                midnightStout:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440001"
+                    name: "Midnight Stout"
+                    style: "Imperial Stout"
+                    abv: 9.2
+                    ibu: 60
+                    quantity: 9
+                    createdDate: "2022-01-03T09:15:00Z"
+                    updatedDate: "2022-02-01T10:45:00Z"
+                pilsnerParadise:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440002"
+                    name: "Pilsner Paradise"
+                    style: "Pilsner"
+                    abv: 4.8
+                    ibu: 20
+                    quantity: 0
+                    createdDate: "2022-01-02T14:30:00Z"
+                    updatedDate: "2022-01-02T14:30:00Z"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /beers/{beerId}:
+    parameters:
+      - $ref: "#/components/parameters/beerId"
+    get:
+      summary: Get a beer by ID
+      description: Returns a single beer by ID
+      operationId: getBeerById
+      tags:
+        - beers
+      responses:
+        "200":
+          description: Beer found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+              examples:
+                hazyWonder:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "Hazy Wonder"
+                    style: "IPA"
+                    abv: 6.5
+                    ibu: 45
+                    quantity: 4
+                    createdDate: "2022-01-01T12:00:00Z"
+                    updatedDate: "2022-01-01T12:00:00Z"
+                midnightStout:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440001"
+                    name: "Midnight Stout"
+                    style: "Imperial Stout"
+                    abv: 9.2
+                    ibu: 60
+                    quantity: 9
+                    createdDate: "2022-01-03T09:15:00Z"
+                    updatedDate: "2022-02-01T10:45:00Z"
+                pilsnerParadise:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440002"
+                    name: "Pilsner Paradise"
+                    style: "Pilsner"
+                    abv: 4.8
+                    ibu: 20
+                    quantity: 0
+                    createdDate: "2022-01-02T14:30:00Z"
+                    updatedDate: "2022-01-02T14:30:00Z"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      summary: Partially update a beer
+      description: Updates specific fields of an existing beer
+      operationId: patchBeer
+      tags:
+        - beers
+      requestBody:
+        description: Beer data to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BeerUpdate"
+      responses:
+        "200":
+          description: Beer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+              examples:
+                hazyWonder:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "Hazy Wonder"
+                    style: "IPA"
+                    abv: 6.5
+                    ibu: 45
+                    quantity: 4
+                    createdDate: "2022-01-01T12:00:00Z"
+                    updatedDate: "2022-01-01T12:00:00Z"
+                midnightStout:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440001"
+                    name: "Midnight Stout"
+                    style: "Imperial Stout"
+                    abv: 9.2
+                    ibu: 60
+                    quantity: 9
+                    createdDate: "2022-01-03T09:15:00Z"
+                    updatedDate: "2022-02-01T10:45:00Z"
+                pilsnerParadise:
+                  value:
+                    id: "550e8400-e29b-41d4-a716-446655440002"
+                    name: "Pilsner Paradise"
+                    style: "Pilsner"
+                    abv: 4.8
+                    ibu: 20
+                    quantity: 0
+                    createdDate: "2022-01-02T14:30:00Z"
+                    updatedDate: "2022-01-02T14:30:00Z"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      summary: Delete a beer
+      description: Deletes a beer from the database
+      operationId: deleteBeer
+      tags:
+        - beers
+      responses:
+        "204":
+          description: Beer deleted successfully
+          content:
+            application/json:
+              schema: {}
+              examples:
+                hazyWonder:
+                  value: {}
+                midnightStout:
+                  value: {}
+                pilsnerParadise:
+                  value: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /orders:
+    get:
+      summary: List all order
+      description: Returns a list of order
+      operationId: listOrders
+      tags:
+        - orders
+      responses:
+        "200":
+          description: A list of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - data
+                  - total
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+                  total:
+                    type: integer
+                    description: Total number of orders matching the filter criteria
+                    example: 2
+              examples:
+                all:
+                  value:
+                    data:
+                      - id: 909c2eb9-98bd-4c31-959e-6f239c13113a
+                        beerId: 550e8400-e29b-41d4-a716-446655440000
+                        userId: 542032df-5c14-4491-8e01-22c84b040f7d
+                        quantity: 4
+                        createdDate: "2022-01-02T14:30:00Z"
+                        status: CREATED
+                    total: 1
+                empty:
+                  value:
+                    data: []
+                    total: 0
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      summary: Create a new order
+      description: Creates a new order in the database
+      operationId: createOrder
+      tags:
+        - orders
+      requestBody:
+        description: Order to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreate"
+      responses:
+        "201":
+          description: ORder created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+              examples:
+                hazyWonderOrder:
+                  value:
+                    id: 909c2eb9-98bd-4c31-959e-6f239c13113a
+                    beerId: 550e8400-e29b-41d4-a716-446655440000
+                    userId: 542032df-5c14-4491-8e01-22c84b040f7d
+                    quantity: 4
+                    createdDate: "2022-01-02T14:30:00Z"
+                    status: CREATED
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /orders/{orderId}:
+    parameters:
+      - $ref: "#/components/parameters/orderId"
+    get:
+      summary: Get an order by ID
+      description: Returns a single order by ID
+      operationId: getOrderById
+      tags:
+        - orders
+      responses:
+        "200":
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+              examples:
+                hazyWonderOrder:
+                  value:
+                    id: 909c2eb9-98bd-4c31-959e-6f239c13113a
+                    beerId: 550e8400-e29b-41d4-a716-446655440000
+                    userId: 542032df-5c14-4491-8e01-22c84b040f7d
+                    quantity: 4
+                    createdDate: "2022-01-02T14:30:00Z"
+                    status: CREATED
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      summary: Update an order by ID
+      description: Update status of an order
+      operationId: patchOrderById
+      tags:
+        - orders
+      requestBody:
+        description: Order to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderUpdate"
+      responses:
+        "200":
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+              examples:
+                hazyWonderOrder:
+                  value:
+                    id: 909c2eb9-98bd-4c31-959e-6f239c13113a
+                    beerId: 550e8400-e29b-41d4-a716-446655440000
+                    userId: 542032df-5c14-4491-8e01-22c84b040f7d
+                    quantity: 4
+                    createdDate: "2022-01-02T14:30:00Z"
+                    status: CREATED
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      summary: Delete an order
+      description: Deletes an order from the database
+      operationId: deleteOrder
+      tags:
+        - orders
+      responses:
+        "204":
+          description: Order deleted successfully
+          content:
+            application/json:
+              schema: {}
+              examples:
+                hazyWonderOrder:
+                  value: {}
+                midnightStout:
+                  value: {}
+                pilsnerParadise:
+                  value: {}
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"

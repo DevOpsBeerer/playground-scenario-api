@@ -1,0 +1,184 @@
+{
+  "beers": [
+    {
+      "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "name": "Hazy Wonder",
+      "style": "Hazy IPA",
+      "abv": 6.7,
+      "ibu": 45,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "c730433b-6a92-4f09-a368-a34b4ad11bd3",
+      "name": "Midnight Stout",
+      "style": "Imperial Stout",
+      "abv": 9.2,
+      "ibu": 75,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "3f333df6-90a4-4fda-8dd3-9485d27cee36",
+      "name": "Sunshine Wheat",
+      "style": "Belgian Witbier",
+      "abv": 4.8,
+      "ibu": 12,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "8c0e3397-b38a-4bdf-86e4-5972872c2c70",
+      "name": "Amber Waves",
+      "style": "Amber Ale",
+      "abv": 5.2,
+      "ibu": 28,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "d67ca0b3-9e2d-4523-8bde-5c4c0e7a24be",
+      "name": "Hoppy Trails",
+      "style": "West Coast IPA",
+      "abv": 7.3,
+      "ibu": 70,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "9b9e8bc4-5118-4a10-8794-ad6412fa3cf1",
+      "name": "Golden Promise",
+      "style": "Golden Ale",
+      "abv": 4.5,
+      "ibu": 22,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "7ae43ea2-fb4c-4809-8ab8-3a9c74765212",
+      "name": "Dark Matter",
+      "style": "Porter",
+      "abv": 5.8,
+      "ibu": 30,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "52a76d6a-ec90-4867-8334-a37fc34dc764",
+      "name": "Sour Patch",
+      "style": "Berliner Weisse",
+      "abv": 3.5,
+      "ibu": 8,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "e4ded1bf-c517-40d7-ad08-0ab7f7dc1e70",
+      "name": "Pils of Wisdom",
+      "style": "Czech Pilsner",
+      "abv": 4.7,
+      "ibu": 35,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "9c4a450f-4913-4514-93f0-cbd3ea3dc3c3",
+      "name": "Red October",
+      "style": "Irish Red Ale",
+      "abv": 5.4,
+      "ibu": 25,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "eb3f67e2-893e-4998-8b69-9a1499b5779f",
+      "name": "Foggy Morning",
+      "style": "New England IPA",
+      "abv": 6.2,
+      "ibu": 40,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "2e3d5a6c-8d4e-4ebb-bd39-0e2c3c8ae5f1",
+      "name": "Bavarian Dreams",
+      "style": "Hefeweizen",
+      "abv": 5.1,
+      "ibu": 14,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "f731b94e-0f1d-41b3-a99a-48d8f763309f",
+      "name": "Triple Threat",
+      "style": "Belgian Tripel",
+      "abv": 8.5,
+      "ibu": 32,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "05de7b24-c27a-429e-92d2-9019b8c763b6",
+      "name": "Cascade Falls",
+      "style": "American Pale Ale",
+      "abv": 5.5,
+      "ibu": 38,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "a43cd585-6d14-4be0-9866-3f89967a12f5",
+      "name": "Vanilla Sky",
+      "style": "Cream Ale",
+      "abv": 4.9,
+      "ibu": 18,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "71cf45f9-157d-4078-95cc-a4e51c3c6ea5",
+      "name": "Brown Sugar",
+      "style": "Brown Ale",
+      "abv": 5.3,
+      "ibu": 24,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "2f1d6b1e-6c59-4024-a6ce-53fa977ac8db",
+      "name": "Barley Legal",
+      "style": "Barleywine",
+      "abv": 10.5,
+      "ibu": 80,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "c83e8a87-dbd1-46b1-acfc-7ad041c3faa3",
+      "name": "Saison de Printemps",
+      "style": "Saison",
+      "abv": 6.0,
+      "ibu": 28,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "4b2d8c1e-93f0-4a67-8ec8-db5c985e3d63",
+      "name": "Kölsch Classic",
+      "style": "Kölsch",
+      "abv": 4.8,
+      "ibu": 20,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    },
+    {
+      "id": "19e6f7a8-d63b-4939-b584-25153c0b96e4",
+      "name": "Smoked Maple",
+      "style": "Rauchbier",
+      "abv": 5.7,
+      "ibu": 26,
+      "quantity": 4,
+      "createdDate": "2025-03-03T21:00:42.021Z"
+    }
+  ]
+}

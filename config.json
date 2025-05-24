@@ -1,0 +1,20 @@
+{
+    "credentials": {
+        "tenantName": "Asterius IT",
+        "clientID": "33c648e9-a7d9-4460-ba98-cbc854b26b7f"
+    },
+    "resource": {
+        "scope": ["tasks.read"]
+    },
+    "metadata": {
+        "authority": "login.microsoftonline.com",
+        "discovery": ".well-known/openid-configuration",
+        "version": "v2.0"
+    },
+    "settings": {
+        "isB2C": false,
+        "validateIssuer": true,
+        "passReqToCallback": false,
+        "loggingLevel": "info"
+    }
+}

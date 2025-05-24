@@ -1,0 +1,28 @@
+{
+  "orders": [
+    {
+      "userId": "test",
+      "beerId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "quantity": 17,
+      "createdDate": "2025-03-30T20:16:36.755Z",
+      "id": "75ef834b-53c1-4a48-85ca-71a07325ef69",
+      "status": "REJECTED"
+    },
+    {
+      "userId": "test",
+      "beerId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "quantity": 17,
+      "createdDate": "2025-03-30T20:24:50.099Z",
+      "id": "193253bf-ea94-4250-961e-2d2a281b61f5",
+      "status": "REJECTED"
+    },
+    {
+      "userId": "test",
+      "beerId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "quantity": 17,
+      "createdDate": "2025-03-30T20:25:07.546Z",
+      "id": "e690fa5c-0bc1-4bdc-977d-39a96f182715",
+      "status": "CREATED"
+    }
+  ]
+}

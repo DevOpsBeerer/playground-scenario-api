@@ -1,0 +1,54 @@
+{
+  "name": "devopsbeerer-api",
+  "version": "1.0.0",
+  "description": "Example of resource server protected by OAuth2 protocol",
+  "exports": "./index.js",
+  "scripts": {
+    "lint": "npx eslint src/",
+    "build": "tsc",
+    "watch-ts": "tsc -w",
+    "watch-node": "nodemon --env-file=.env dist/index.js",
+    "dev": "cp db.init.json db.json && concurrently \"npm run watch-ts\" \"npm run watch-node\""
+  },
+  "type": "module",
+  "keywords": [
+    "oauth2",
+    "sso",
+    "authentication",
+    "autorization"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Quentin RODIC",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.0.1",
+    "lowdb": "^7.0.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
+    "passport-keycloak-bearer": "^2.4.1",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/cors": "^2.8.17",
+    "@types/passport-jwt": "^4.0.1",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.13.9",
+    "@types/passport": "^1.0.17",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.26.0"
+  }
+}
