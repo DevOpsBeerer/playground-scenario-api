@@ -48,7 +48,7 @@ LABEL org.opencontainers.image.vendor="DevopsBeerer Team"
 LABEL org.opencontainers.image.licenses="MIT"
 
 # Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+RUN apk add --no-cache dumb-init=1.2.5-r3
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
